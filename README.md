@@ -1,4 +1,4 @@
-# Griggsmaz NS Edition
+# Griggsmaz Remake
 
 ![img](https://img.itch.zone/aW1nLzIyODYwOTQxLnBuZw==/original/RIpDmN.png)
 
