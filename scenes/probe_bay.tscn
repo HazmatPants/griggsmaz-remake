@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cl2u4ai77rcbb"]
+
+[ext_resource type="Script" uid="uid://cl3kx2bavlixi" path="res://scripts/probe_bay.gd" id="1_c2yuh"]
+[ext_resource type="Material" uid="uid://bmpi1fxye3f1y" path="res://assets/materials/metal.tres" id="2_otpku"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_xvvcp"]
+material = ExtResource("2_otpku")
+top_radius = 3.0
+bottom_radius = 3.0
+height = 10.0
+
+[node name="ProbeBay1" type="Node3D" unique_id=802056078]
+transform = Transform3D(1, 0, 0, 0, -0.08715576, 0.99619466, 0, -0.99619466, -0.08715576, 0, 0, 0)
+script = ExtResource("1_c2yuh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1936026980]
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
+mesh = SubResource("CylinderMesh_xvvcp")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1087811519]
+transform = Transform3D(1, 0, 0, 0, 0.9961948, -0.087155744, 0, 0.087155744, 0.9961948, 0, -9.241039, -0.42777538)
+mesh = SubResource("CylinderMesh_xvvcp")

@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://gm07lc2s4el6"]
+
+[ext_resource type="Script" uid="uid://djjiqh1c146iy" path="res://scripts/button.gd" id="1_mi6dp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rhj8v"]
+albedo_color = Color(0.5931336, 0.59313357, 0.59313357, 1)
+metallic = 1.0
+roughness = 0.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_3q610"]
+material = SubResource("StandardMaterial3D_rhj8v")
+size = Vector3(0.3, 0.05, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i7y4x"]
+albedo_color = Color(1, 0, 0, 1)
+roughness = 0.42
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1bdt2"]
+material = SubResource("StandardMaterial3D_i7y4x")
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.08
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8m7bo"]
+size = Vector3(0.3010254, 0.1, 0.29749146)
+
+[node name="Button" type="StaticBody3D" unique_id=1640900794]
+script = ExtResource("1_mi6dp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=204899649]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.02)
+mesh = SubResource("BoxMesh_3q610")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1570719527]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, -0.023728743)
+mesh = SubResource("CylinderMesh_1bdt2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=661789844]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0.020321649)
+shape = SubResource("BoxShape3D_8m7bo")
+
+[node name="Label3D" type="Label3D" parent="." unique_id=1848256733]
+transform = Transform3D(0.03, 0, 0, 0, -1.3113416e-09, 0.03, 0, -0.03, -1.3113416e-09, 0, 0.02639483, 0.11966172)
+modulate = Color(0, 0, 0, 1)
+outline_modulate = Color(1, 1, 1, 1)
+text = "Button Label"
+font_size = 200
