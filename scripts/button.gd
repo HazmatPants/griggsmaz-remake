@@ -13,6 +13,6 @@ func interact():
 	Audio.playsound3d(
 		preload("res://assets/audio/sfx/buttons/Switch2.ogg"),
 		global_position,
-		0.05
+		0.01
 	)
 	pressed.emit()

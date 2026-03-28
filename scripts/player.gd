@@ -17,6 +17,7 @@ var viewbob_height := 0.2
 var speed := 0.0
 
 var is_sprinting := false
+var can_move := true
 
 var look_angle := Vector3.ZERO
 var viewpunch := Vector3.ZERO
@@ -48,18 +49,17 @@ func _process(_delta: float) -> void:
 		if front_ray.is_colliding():
 			var collider = front_ray.get_collider()
 			print(collider)
-			if collider is Interactable:
+			if collider is Interactable or collider.has_method("interact"):
 				collider.interact()
 
 var last_viewbob_y := 0.0
 func _physics_process(delta: float) -> void:
-	viewbob_time += (delta * viewbob_frequency) * (velocity.length() / 4)
+	viewbob_time += (delta * viewbob_frequency) * (velocity.length() / 3)
 
-	look_angle.x -= mouse_delta.y * mouse_sensitivity
-	look_angle.y -= mouse_delta.x * mouse_sensitivity
+	viewpunch = viewpunch.lerp(viewpunch_target, 0.1)
+	viewpunch_target = viewpunch_target.lerp(Vector3.ZERO, 0.1)
 
-	viewpunch_target.z -= velocity.dot(camera.global_basis.x) / 1000
-	viewpunch_target.z -= mouse_delta.x / 2000
+	look_angle += viewpunch
 
 	viewpunch_target += Vector3(
 		randf_range(-1.0, 1.0),
@@ -67,20 +67,23 @@ func _physics_process(delta: float) -> void:
 		randf_range(-1.0, 1.0)
 	) * 0.0001
 
-	viewpunch = viewpunch.lerp(viewpunch_target, 0.1)
-	viewpunch_target = viewpunch_target.lerp(Vector3.ZERO, 0.1)
+	if can_move:
+		camera.position = camera.position.lerp(Vector3(0, 0.6, 0), 0.3)
+		look_angle.x -= mouse_delta.y * mouse_sensitivity
+		look_angle.y -= mouse_delta.x * mouse_sensitivity
 
-	look_angle += viewpunch
+		viewpunch_target.z -= velocity.dot(camera.global_basis.x) / 1000
+		viewpunch_target.z -= mouse_delta.x / 2000
 
-	var camera_angle := Vector3.ZERO
-	camera_angle.x += look_angle.x
-	camera_angle += viewpunch
+		var camera_angle := Vector3.ZERO
+		camera_angle.x += look_angle.x
+		camera_angle += viewpunch
+ 
+		camera.rotation.x = lerp_angle(camera.rotation.x, camera_angle.x, 0.3)
+		camera.rotation.y = camera_angle.y
+		camera.rotation.z = camera_angle.z
 
-	camera.rotation.x = lerp_angle(camera.rotation.x, camera_angle.x, 0.3)
-	camera.rotation.y = camera_angle.y
-	camera.rotation.z = camera_angle.z
-
-	rotation.y = lerp_angle(rotation.y, look_angle.y, 0.3)
+		rotation.y = lerp_angle(rotation.y, look_angle.y, 0.3)
 
 	var viewbob_y = sin(viewbob_time * 2.0) * viewbob_height
 
@@ -118,6 +121,9 @@ func _physics_process(delta: float) -> void:
 		"move_forward",
 		"move_backward"
 	).normalized()
+
+	if not can_move:
+		input_vector = Vector2.ZERO
 
 	if input_vector != Vector2.ZERO and is_on_floor():
 		if is_sprinting:

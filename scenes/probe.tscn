@@ -3,6 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bac0wd4b1uurl" path="res://assets/textures/particle_sprite_smoke.png" id="1_pf5rm"]
 [ext_resource type="Script" uid="uid://ofov3fah4dhm" path="res://scripts/probe.gd" id="1_st13e"]
 [ext_resource type="AudioStream" uid="uid://qs3banpqnwqs" path="res://assets/audio/sfx/machine/thrust_loop.wav" id="3_jyxx6"]
+[ext_resource type="FontFile" uid="uid://c0yc0kajfy0ja" path="res://assets/fonts/PerfectDOSVGA437.ttf" id="4_7m7ac"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ehkm4"]
 resource_name = "Material"
@@ -401,39 +402,39 @@ points = PackedVector3Array(-0.7, 3, 0.7, 1.5, -3, 1.8, 0.7, 3, 0.7, -1.5, -3, 1
 script = ExtResource("1_st13e")
 
 [node name="Sphere" type="MeshInstance3D" parent="." unique_id=18500591]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.085361004, -1.085361)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.0059537888, -1.085361)
 mesh = SubResource("ArrayMesh_e8fol")
 
 [node name="Cylinder" type="MeshInstance3D" parent="." unique_id=102980549]
-transform = Transform3D(0.020734498, 0, 0, 0, 1.1611842e-07, 0.020734498, 0, 2.6564798, -9.0633373e-10, 0.625, -0.835361, 1.5026791)
+transform = Transform3D(0.020734498, 0, 0, 0, 1.1611842e-07, 0.020734498, 0, 2.6564798, -9.0633373e-10, 0.625, -0.7559538, 1.5026791)
 mesh = SubResource("ArrayMesh_cyc5m")
 
 [node name="Cylinder_001" type="MeshInstance3D" parent="." unique_id=1546016242]
-transform = Transform3D(0.020734498, 0, 0, 0, 1.1611842e-07, 0.020734498, 0, 2.6564798, -9.0633373e-10, -0.625, -0.835361, 1.5026791)
+transform = Transform3D(0.020734498, 0, 0, 0, 1.1611842e-07, 0.020734498, 0, 2.6564798, -9.0633373e-10, -0.625, -0.7559538, 1.5026791)
 mesh = SubResource("ArrayMesh_4hyh3")
 
 [node name="Cylinder_002" type="MeshInstance3D" parent="." unique_id=707342507]
-transform = Transform3D(0.020734498, 0, 0, 0, 1.1611842e-07, 0.020734498, 0, 2.6564798, -9.0633373e-10, 0.625, 0.66463906, 1.5026791)
+transform = Transform3D(0.020734498, 0, 0, 0, 1.1611842e-07, 0.020734498, 0, 2.6564798, -9.0633373e-10, 0.625, 0.7440463, 1.5026791)
 mesh = SubResource("ArrayMesh_0ad3c")
 
 [node name="Cylinder_003" type="MeshInstance3D" parent="." unique_id=69389150]
-transform = Transform3D(0.020734498, 0, 0, 0, 1.1611842e-07, 0.020734498, 0, 2.6564798, -9.0633373e-10, -0.625, 0.66463906, 1.5026791)
+transform = Transform3D(0.020734498, 0, 0, 0, 1.1611842e-07, 0.020734498, 0, 2.6564798, -9.0633373e-10, -0.625, 0.7440463, 1.5026791)
 mesh = SubResource("ArrayMesh_vjq2k")
 
 [node name="Cylinder_004" type="MeshInstance3D" parent="." unique_id=1650179111]
-transform = Transform3D(0.300418, 0, 0, 0, -1.3131688e-08, 0.300418, 0, -0.300418, -1.3131688e-08, 0, -0.08536112, -1.907284)
+transform = Transform3D(0.300418, 0, 0, 0, -1.3131688e-08, 0.300418, 0, -0.300418, -1.3131688e-08, 0, -0.005953908, -1.907284)
 mesh = SubResource("ArrayMesh_vptof")
 
 [node name="Icosphere" type="MeshInstance3D" parent="." unique_id=1801096283]
-transform = Transform3D(0.24886099, 0, 0, 0, -7.344999e-09, 0.24886099, 0, -0.16803399, -1.0878059e-08, 0, -0.08536112, -2.063612)
+transform = Transform3D(0.24886099, 0, 0, 0, -7.344999e-09, 0.24886099, 0, -0.16803399, -1.0878059e-08, 0, -0.005953908, -2.063612)
 mesh = SubResource("ArrayMesh_kj0fc")
 
 [node name="Cube" type="MeshInstance3D" parent="." unique_id=1607948592]
-transform = Transform3D(4.3784103, 0, 0, 0, -6.322197e-08, 4.3784103, 0, -1.4463501, -1.9138639e-07, 0, -0.085361004, -0.249102)
+transform = Transform3D(4.3784103, 0, 0, 0, -6.322197e-08, 4.3784103, 0, -1.4463501, -1.9138639e-07, 0, -0.0059537888, -0.249102)
 mesh = SubResource("ArrayMesh_2ve7y")
 
 [node name="Thruster" type="MeshInstance3D" parent="." unique_id=1013421045]
-transform = Transform3D(0.264133, 0, 0, 0, -1.15456205e-08, 0.264133, 0, -0.264133, -1.15456205e-08, 0, -0.085361004, 0.17535901)
+transform = Transform3D(0.264133, 0, 0, 0, -1.15456205e-08, 0.264133, 0, -0.264133, -1.15456205e-08, 0, -0.0059537888, 0.17535901)
 mesh = SubResource("ArrayMesh_67ie0")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="Thruster" unique_id=173294665]
@@ -446,14 +447,31 @@ process_material = SubResource("ParticleProcessMaterial_d2v0j")
 draw_pass_1 = SubResource("QuadMesh_dgx63")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=541431942]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.085361004, -1.085361)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.0059537888, -1.085361)
 shape = SubResource("SphereShape3D_st13e")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=626929382]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.085361004, 1.2900052)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.0059537888, 1.2900052)
 shape = SubResource("ConvexPolygonShape3D_jyxx6")
 
 [node name="ThrusterSFX" type="AudioStreamPlayer3D" parent="." unique_id=1771148629]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.085361004, -1.085361)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.0059537888, -1.085361)
 stream = ExtResource("3_jyxx6")
 bus = &"Probe"
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1578721213]
+size = Vector2i(128, 128)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport" unique_id=399540197]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.23219)
+near = 0.001
+
+[node name="Label" type="Label" parent="SubViewport" unique_id=2113178330]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 40.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("4_7m7ac")

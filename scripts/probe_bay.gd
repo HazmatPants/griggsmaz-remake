@@ -1,40 +1,57 @@
 extends Node3D
+class_name ProbeBay
 
-var probe: RigidBody3D
+enum PROBE_STATUS {
+	APPROACH,
+	IDLE,
+	SCANNING,
+	RETURN,
+}
 
-var is_launching := false
+var probe_status := PROBE_STATUS.IDLE
+
+var probe: Probe
+
+var is_reloading := false
+
+signal reloaded
+
+func _ready() -> void:
+	probe = preload("res://scenes/probe.tscn").instantiate()
+	get_tree().current_scene.add_child.call_deferred(probe)
+
+	probe.bay = self
+
+	await probe.tree_entered
+
+	probe.global_position = global_position - global_basis.y
 
 func launch() -> void:
-	if is_launching: return
-
-	is_launching = true
-
-	if not probe:
-		reload()
-		await get_tree().create_timer(5.0).timeout
-
 	probe.launch()
-	probe = null
-
-	await get_tree().create_timer(3.0).timeout
-	is_launching = false
 
 func reload():
-	if not probe:
-		await get_tree().create_timer(1.0).timeout
-		Audio.playsound3d(
-			preload("res://assets/audio/sfx/machine/launcher_reload.ogg"),
-			global_position,
-			1.0,
-			"Probe"
-		)
-		probe = preload("res://scenes/probe.tscn").instantiate()
+	if not probe.is_docked: 
+		reloaded.emit(false)
+		return
 
-		get_tree().current_scene.add_child(probe)
+	await get_tree().create_timer(1.0).timeout
 
-		probe.global_position = global_position - global_basis.y * 6.0
-		probe.look_at(global_position)
+	is_reloading = true
+
+	Audio.playsound3d(
+		preload("res://assets/audio/sfx/machine/launcher_reload.ogg"),
+		global_position,
+		1.0,
+		"Probe",
+		0.9
+	)
+
+	probe.global_position = global_position - global_basis.y
+	probe.look_at(global_position)
+	reloaded.emit(true)
+	await get_tree().create_timer(1.0).timeout
+	is_reloading = false
 
 func _physics_process(_delta: float) -> void:
-	if probe:
+	if probe and probe.is_inside_tree() and is_reloading:
 		probe.global_position = probe.global_position.lerp(global_position + global_basis.y * 6.0, 0.05)
