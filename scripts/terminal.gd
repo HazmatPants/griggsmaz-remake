@@ -196,6 +196,13 @@ func parse_command(cmd_string: String):
 	var command = args.pop_front()
 
 	match command:
+		"help":
+			print_out("""
+			Command list:
+			- help - this
+			- probe - control probes (launch, see status, target, etc.)
+			- clear - clear the screen
+			""".dedent())
 		"clear":
 			term_output.text = ""
 		"probe":
@@ -274,8 +281,66 @@ func parse_command(cmd_string: String):
 						$"../FeedScreen".probe_idx = int(probe_idx)
 					else:
 						print_out("probe: probe index must be an integer")
+				"target":
+					var body_id = args.pop_front()
+					if not body_id:
+						print_out("probe: target: missing target")
+						return
+					if CelestialObjectManager.scanned_bodies.keys().has(body_id):
+						if probe_idx.is_valid_int():
+							var bay = probe_bays.get(int(probe_idx))
+							var probe = bay.probe
+
+							if probe:
+								probe.target = CelestialObjectManager.scanned_bodies[body_id]
+								print_out("Set Probe %s target to %s" % [probe_idx, body_id])
+						else:
+							print_out("probe: probe index must be an integer")
+					else:
+						print_out("probe: target: Body %s not found" % body_id)
 				_:
 					print_out("probe: Invalid subcommand '%s'" % subcommand)
+		"celobj":
+			var subcommand = args.pop_back()
+
+			if not subcommand:
+				print_out("celobj: missing subcommand")
+				print_out("Usage: celobj <subcommand>")
+				return
+
+			match subcommand:
+				"scan":
+					print_out("Scanning for nearby celestial objects...")
+					await get_tree().create_timer(randf_range(3.0, 5.0) * CelestialObjectManager.scanner_instability).timeout
+					if CelestialObjectManager.bodies.keys() == CelestialObjectManager.scanned_bodies.keys():
+						print_out("No new objects detected")
+						return
+					for body in CelestialObjectManager.bodies.keys():
+						if body in CelestialObjectManager.scanned_bodies:
+							continue
+
+						while true:
+							if randf() > 0.8:
+								break
+							await get_tree().create_timer(1.0 * CelestialObjectManager.scanner_instability).timeout
+							await get_tree().process_frame
+
+						var body_data = CelestialObjectManager.bodies[body]
+						var body_distance = Vector3.ZERO.distance_to(body_data["position"])
+						var body_type = CelestialObjectManager.BODY_TYPE.find_key(body_data["type"])
+
+						CelestialObjectManager.scanned_bodies[body] = body_data
+						print_out("Detected object of type '%s', distance ~%.1fm assigned ID %s" % [body_type, body_distance, body])
+				"list":
+					for body in CelestialObjectManager.scanned_bodies.keys():
+						var body_data = CelestialObjectManager.scanned_bodies[body]
+						var body_distance = Vector3.ZERO.distance_to(body_data["position"])
+						var body_type = CelestialObjectManager.BODY_TYPE.find_key(body_data["type"])
+						print_out("%s:" % body)
+						print_out("	Type: %s" % body_type)
+						print_out("	Distance: ~%.1fm" % body_distance)
+				"status":
+					print_out("Scanner accuracy: %.1f" % [CelestialObjectManager.scanner_instability * 100 - 1.0])
 		_:
 			print_out("No such command")
 
@@ -291,12 +356,13 @@ func print_probe_status(idx: int, bays: Array):
 	print_out("	Fuel: %.1f%%" % [bay.probe.fuel * 100])
 	print_out("	Battery: %.1f%%" % [bay.probe.battery * 100])
 	print_out("	Distance: %.1fm" % [probe.global_position.distance_to(bay.global_position)])
-	print_out("	Distance to target: %.1fm" % [probe.global_position.distance_to(probe.target)])
+	if probe.target:
+		print_out("	Distance to target: %.1fm" % [probe.global_position.distance_to(probe.target["position"])])
 	print_out("	Velocity: %.1fm/s" % [probe.linear_velocity.length()])
 
 	match bay.probe_status:
 		ProbeBay.PROBE_STATUS.SCANNING:
-			print_out("	Task: Scanning target (%.1f%%)" % [probe.scan_progress * 100])
+			print_out("	Task: Scanning target (%.1f%%)" % [probe.target["scan_progress"] * 100])
 		ProbeBay.PROBE_STATUS.IDLE:
 			print_out("	Task: Idle")
 		ProbeBay.PROBE_STATUS.APPROACH:
@@ -309,6 +375,9 @@ func print_probe_launch(idx: int, bays: Array):
 
 	if probe_bay:
 		var probe = probe_bay.probe
+		if not probe.target:
+			print_out("probe: launch: Probe %s has no target" % idx)
+			return
 		if probe.is_docked:
 			print_out("Loading probe %s..." % idx, false)
 
@@ -331,6 +400,15 @@ func print_probe_launch(idx: int, bays: Array):
 			print_out("Locking target...", false)
 			await probe.target_locked
 			print_out("OK")
+
+			await get_tree().create_timer(2.0).timeout
+
+			Audio.playsound3d(
+				preload("res://assets/audio/sfx/machine/ttsw_pitbull.ogg"),
+				global_position,
+				0.03
+			)
+
 		else:
 			print_out("probe: probe %s not docked" % idx)
 	else:

@@ -11,7 +11,7 @@ extends CharacterBody3D
 @export var viewbob_frequency: float = 6.0
 @export var viewbob_amplitude: float = 0.01
 var viewbob_time := 0.0
-var viewbob_width := 1.0
+var viewbob_width := 0.5
 var viewbob_height := 0.2
 
 var speed := 0.0
@@ -48,7 +48,6 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("interact"):
 		if front_ray.is_colliding():
 			var collider = front_ray.get_collider()
-			print(collider)
 			if collider is Interactable or collider.has_method("interact"):
 				collider.interact()
 
@@ -80,14 +79,14 @@ func _physics_process(delta: float) -> void:
 		camera_angle += viewpunch
  
 		camera.rotation.x = lerp_angle(camera.rotation.x, camera_angle.x, 0.3)
-		camera.rotation.y = camera_angle.y
-		camera.rotation.z = camera_angle.z
+		camera.rotation.y = lerp_angle(camera.rotation.y, camera_angle.y, 0.3)
+		camera.rotation.z = lerp_angle(camera.rotation.z, camera_angle.z, 0.3)
 
 		rotation.y = lerp_angle(rotation.y, look_angle.y, 0.3)
 
 	var viewbob_y = sin(viewbob_time * 2.0) * viewbob_height
 
-	if is_on_floor() and absf(velocity.length()) > 0.1:
+	if is_on_floor() and absf(velocity.length()) > 0.2:
 		viewbob_rot = Vector3(
 			viewbob_y,
 			sin(viewbob_time) * viewbob_width,
@@ -103,12 +102,12 @@ func _physics_process(delta: float) -> void:
 		Audio.playrandom3d(
 			SFX_FOOTSTEP["default"]["walk"],
 			global_position,
-			0.1 if is_sprinting else 0.02
+			0.05 if is_sprinting else 0.02
 		)
 
 	last_viewbob_y = viewbob_y
 
-	camera.rotation.x = clampf(camera.rotation.x, deg_to_rad(-85), deg_to_rad(85))
+	look_angle.x = clampf(look_angle.x, deg_to_rad(-85), deg_to_rad(85))
 
 	mouse_delta = Vector2.ZERO
 
@@ -127,7 +126,7 @@ func _physics_process(delta: float) -> void:
 
 	if input_vector != Vector2.ZERO and is_on_floor():
 		if is_sprinting:
-			speed += 20.0 * delta
+			speed += 40.0 * delta
 		else:
 			speed += 70.0 * delta
 	else:

@@ -22,6 +22,7 @@ buses/default_bus_layout="uid://cfosnpc42afdy"
 
 Audio="*uid://dh567h3e65w3l"
 GLOBAL="*uid://dcufb18uwwpnc"
+CelestialObjectManager="*uid://dfi1tosl6niti"
 
 [input]
 

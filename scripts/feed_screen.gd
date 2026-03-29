@@ -26,13 +26,25 @@ func _process(delta: float) -> void:
 
 			view.get_node("Label").text = "Probe %d" % probe_idx
 
+
 			var img = view.get_texture().get_image()
+
+			var dist = Vector3.ZERO.distance_to(probe.global_position)
+
+			var size = 128 - (dist / 40)
+
+			size = clampi(size, 8, 128)
+
+			img.resize(size, size, Image.INTERPOLATE_BILINEAR)
 
 			var texture = ImageTexture.create_from_image(img)
 
 			var mat = StandardMaterial3D.new()
 
 			mat.albedo_texture = texture
+			mat.emission_texture = texture
+			mat.emission_enabled = true
+			mat.emission_energy_multiplier = 3.0
 
 			mat.texture_filter = BaseMaterial3D.TEXTURE_FILTER_NEAREST
 

@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://c0yc0kajfy0ja"
-path="res://.godot/imported/PerfectDOSVGA437.ttf-af29b65a58635f48373300a97598e21d.fontdata"
+uid="uid://cp6bkv4om27qa"
+path="res://.godot/imported/Ticketing.ttf-9a32feb7ed6c0c9e2538e7095f5494c9.fontdata"
 
 [deps]
 
-source_file="res://assets/fonts/PerfectDOSVGA437.ttf"
-dest_files=["res://.godot/imported/PerfectDOSVGA437.ttf-af29b65a58635f48373300a97598e21d.fontdata"]
+source_file="res://assets/fonts/Ticketing.ttf"
+dest_files=["res://.godot/imported/Ticketing.ttf-9a32feb7ed6c0c9e2538e7095f5494c9.fontdata"]
 
 [params]
 

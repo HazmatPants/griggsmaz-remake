@@ -111,18 +111,34 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_too3n")
 
+[sub_resource type="Curve" id="Curve_rqueh"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_fv82l"]
+curve = SubResource("Curve_rqueh")
+
+[sub_resource type="Curve" id="Curve_01pxi"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.3611111, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_q1crh"]
+curve = SubResource("Curve_01pxi")
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_wwqjk"]
-emission_shape_scale = Vector3(100, 100, 100)
-emission_shape = 1
-emission_sphere_radius = 1.0
+emission_shape = 3
+emission_box_extents = Vector3(15, 15, 15)
 spread = 20.0
 initial_velocity_min = 1.0
 initial_velocity_max = 15.0
 gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_q1crh")
+alpha_curve = SubResource("CurveTexture_fv82l")
 turbulence_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b73mi"]
 transparency = 1
+vertex_color_use_as_albedo = true
 albedo_color = Color(0.266667, 0, 1, 0.501961)
 metallic = 1.0
 roughness = 0.0

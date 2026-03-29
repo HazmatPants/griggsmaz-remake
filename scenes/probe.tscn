@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bac0wd4b1uurl" path="res://assets/textures/particle_sprite_smoke.png" id="1_pf5rm"]
 [ext_resource type="Script" uid="uid://ofov3fah4dhm" path="res://scripts/probe.gd" id="1_st13e"]
 [ext_resource type="AudioStream" uid="uid://qs3banpqnwqs" path="res://assets/audio/sfx/machine/thrust_loop.wav" id="3_jyxx6"]
-[ext_resource type="FontFile" uid="uid://c0yc0kajfy0ja" path="res://assets/fonts/PerfectDOSVGA437.ttf" id="4_7m7ac"]
+[ext_resource type="FontFile" uid="uid://cp6bkv4om27qa" path="res://assets/fonts/Ticketing.ttf" id="4_7m7ac"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ehkm4"]
 resource_name = "Material"

@@ -9,15 +9,15 @@
 [ext_resource type="PackedScene" uid="uid://cl2u4ai77rcbb" path="res://scenes/probe_bay.tscn" id="7_vqfsp"]
 [ext_resource type="Script" uid="uid://bcte56ws70w0x" path="res://scripts/terminal.gd" id="8_jn13j"]
 [ext_resource type="Texture2D" uid="uid://cld2hlbqvdevb" path="res://assets/textures/planet.png" id="8_vqfsp"]
-[ext_resource type="FontFile" uid="uid://c0yc0kajfy0ja" path="res://assets/fonts/PerfectDOSVGA437.ttf" id="10_jn13j"]
+[ext_resource type="FontFile" uid="uid://cp6bkv4om27qa" path="res://assets/fonts/Ticketing.ttf" id="10_dmaw2"]
 [ext_resource type="Script" uid="uid://dv5g5vas71cgi" path="res://scripts/holodoor.gd" id="11_6irmp"]
 [ext_resource type="Script" uid="uid://wrhlom81q564" path="res://scripts/feed_screen.gd" id="11_dmaw2"]
 
 [sub_resource type="Environment" id="Environment_baglu"]
+background_mode = 1
 ambient_light_source = 1
 ssao_enabled = true
 glow_enabled = true
-volumetric_fog_enabled = true
 volumetric_fog_density = 0.02
 
 [sub_resource type="BoxMesh" id="BoxMesh_40w10"]
@@ -144,6 +144,7 @@ material = ExtResource("5_jn13j")
 size = Vector3(3, 0.5, 0.8)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ycryd"]
+size = Vector3(3, 3, 0.5)
 
 [node name="Base" type="Node3D" unique_id=1372311900]
 script = ExtResource("1_xvvcp")
@@ -357,7 +358,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("10_jn13j")
+theme_override_fonts/font = ExtResource("10_dmaw2")
+theme_override_font_sizes/font_size = 24
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ycryd")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_ystrd")
 theme_override_styles/read_only = SubResource("StyleBoxEmpty_isyof")

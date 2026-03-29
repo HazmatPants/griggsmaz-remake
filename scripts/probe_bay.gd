@@ -39,14 +39,14 @@ func reload():
 	is_reloading = true
 
 	Audio.playsound3d(
-		preload("res://assets/audio/sfx/machine/launcher_reload.ogg"),
+		preload("res://assets/audio/sfx/machine/probe_load.ogg"),
 		global_position,
-		1.0,
+		4.0,
 		"Probe",
 		0.9
 	)
 
-	probe.global_position = global_position - global_basis.y
+	probe.global_position = global_position + Vector3.BACK
 	probe.look_at(global_position)
 	reloaded.emit(true)
 	await get_tree().create_timer(1.0).timeout

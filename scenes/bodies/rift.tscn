@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://4brwr7gl35d2"]
+
+[sub_resource type="Curve" id="Curve_t8av1"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_n8r2y"]
+curve = SubResource("Curve_t8av1")
+
+[sub_resource type="Curve" id="Curve_o1jgp"]
+_data = [Vector2(0, 0), 0.0, 1.2606996, 0, 0, Vector2(0.3148148, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.610895), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_gb1pk"]
+curve = SubResource("Curve_o1jgp")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yby5t"]
+emission_shape = 1
+emission_sphere_radius = 0.9
+spread = 180.0
+initial_velocity_min = 0.099999994
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_gb1pk")
+alpha_curve = SubResource("CurveTexture_n8r2y")
+turbulence_enabled = true
+turbulence_influence_min = 0.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8h0kf"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 0, 0, 0.8901961)
+
+[sub_resource type="SphereMesh" id="SphereMesh_qbcij"]
+material = SubResource("StandardMaterial3D_8h0kf")
+radius = 1.0
+height = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_somao"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 4.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_v8lnd"]
+material = SubResource("StandardMaterial3D_somao")
+radius = 1.0
+height = 2.0
+
+[node name="Rift" type="Node3D" unique_id=2039799764]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1430882875]
+amount = 64
+lifetime = 4.0
+visibility_aabb = AABB(-5000, -5000, -5000, 10000, 10000, 10000)
+process_material = SubResource("ParticleProcessMaterial_yby5t")
+draw_pass_1 = SubResource("SphereMesh_qbcij")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1812597172]
+mesh = SubResource("SphereMesh_v8lnd")
