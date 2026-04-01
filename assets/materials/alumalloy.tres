@@ -1,0 +1,25 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://8lv4nxxx66k0"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fupdc"]
+noise_type = 3
+frequency = 0.0067
+fractal_gain = 3.01
+fractal_weighted_strength = 1.0
+domain_warp_enabled = true
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_2dpha"]
+width = 1024
+height = 1024
+noise = SubResource("FastNoiseLite_fupdc")
+seamless = true
+as_normal_map = true
+normalize = false
+seamless_blend_skirt = 0.5
+bump_strength = 30.8
+
+[resource]
+metallic = 1.0
+roughness = 0.62
+normal_enabled = true
+normal_texture = SubResource("NoiseTexture2D_2dpha")
+uv1_triplanar = true

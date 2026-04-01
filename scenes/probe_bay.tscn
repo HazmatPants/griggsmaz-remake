@@ -3,20 +3,36 @@
 [ext_resource type="Script" uid="uid://cl3kx2bavlixi" path="res://scripts/probe_bay.gd" id="1_c2yuh"]
 [ext_resource type="Material" uid="uid://bmpi1fxye3f1y" path="res://assets/materials/metal.tres" id="2_otpku"]
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_xvvcp"]
+[sub_resource type="TorusMesh" id="TorusMesh_otpku"]
 material = ExtResource("2_otpku")
-top_radius = 3.0
-bottom_radius = 3.0
-height = 10.0
+inner_radius = 3.0
+outer_radius = 2.71
+
+[sub_resource type="Curve3D" id="Curve3D_otpku"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -5.045, 0, 0, 0, 0, 0, 0, 0, 16.135, -5.51),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
 
 [node name="ProbeBay1" type="Node3D" unique_id=802056078]
-transform = Transform3D(1, 0, 0, 0, -0.08715576, 0.99619466, 0, -0.99619466, -0.08715576, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, -4.3711385e-08, 0.99999994, 0, -0.99999994, -4.3711385e-08, 0, 0, 0)
 script = ExtResource("1_c2yuh")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1936026980]
-transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0, 0, 0)
-mesh = SubResource("CylinderMesh_xvvcp")
+transform = Transform3D(1, 0, 0, 0, 35, -3.552714e-15, 0, 1.2434499e-13, 1, 0, -9, -3.934025e-07)
+mesh = SubResource("TorusMesh_otpku")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1087811519]
-transform = Transform3D(1, 0, 0, 0, 0.9961948, -0.087155744, 0, 0.087155744, 0.9961948, 0, -9.241039, -0.42777538)
-mesh = SubResource("CylinderMesh_xvvcp")
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1508405797]
+transform = Transform3D(1, 0, 0, 0, 34.86679, 0.08715569, 0, -3.0504494, 0.99619436, 0, 0.09022296, -0.39832842)
+mesh = SubResource("TorusMesh_otpku")
+
+[node name="Path3D" type="Path3D" parent="." unique_id=1342800978]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10.5774, 4.9163322)
+curve = SubResource("Curve3D_otpku")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=1220593730]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.9999993, 0, 0, 0, 1.0000018, 0, 0, 0)
+rotation_mode = 2
+loop = false

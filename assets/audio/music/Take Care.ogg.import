@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://irpjyu6qpi3y"
+path="res://.godot/imported/Take Care.ogg-20bc133b5c2775e4c4f1e6844446535f.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/music/Take Care.ogg"
+dest_files=["res://.godot/imported/Take Care.ogg-20bc133b5c2775e4c4f1e6844446535f.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

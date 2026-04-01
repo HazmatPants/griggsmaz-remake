@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cbwuwtss6hal0"]
 
 [ext_resource type="Script" uid="uid://caphtxuffjuxi" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://bx67ae3770xby" path="res://scripts/player_hud.gd" id="2_g2els"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u8vuu"]
 radius = 0.28076172
@@ -11,14 +12,19 @@ script = ExtResource("1_3vyb7")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=893631916]
 shape = SubResource("CapsuleShape3D_u8vuu")
 
+[node name="AudioListener3D" type="AudioListener3D" parent="." unique_id=1751245222]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+
 [node name="Camera3D" type="Camera3D" parent="." unique_id=2064303141]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+current = true
 
 [node name="RayCast3D" type="RayCast3D" parent="Camera3D" unique_id=1312436416]
 target_position = Vector3(0, 0, -2)
 collide_with_areas = true
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=730033409]
+script = ExtResource("2_g2els")
 
 [node name="ColorRect" type="ColorRect" parent="HUD" unique_id=1936224747]
 anchors_preset = 8
@@ -33,3 +39,10 @@ offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
+
+[node name="FPSLabel" type="Label" parent="HUD" unique_id=1941399612]
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="FootRay" type="RayCast3D" parent="." unique_id=111957361]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.91754436, 0)

@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bac0wd4b1uurl" path="res://assets/textures/particle_sprite_smoke.png" id="1_pf5rm"]
 [ext_resource type="Script" uid="uid://ofov3fah4dhm" path="res://scripts/probe.gd" id="1_st13e"]
 [ext_resource type="AudioStream" uid="uid://qs3banpqnwqs" path="res://assets/audio/sfx/machine/thrust_loop.wav" id="3_jyxx6"]
-[ext_resource type="FontFile" uid="uid://cp6bkv4om27qa" path="res://assets/fonts/Ticketing.ttf" id="4_7m7ac"]
+[ext_resource type="FontFile" uid="uid://b7b5eqkbdsac0" path="res://assets/fonts/JetBrainsMono-Regular.ttf" id="4_7m7ac"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ehkm4"]
 resource_name = "Material"
@@ -392,11 +392,15 @@ particles_anim_loop = false
 [sub_resource type="QuadMesh" id="QuadMesh_dgx63"]
 material = SubResource("StandardMaterial3D_ca6b4")
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_st13e"]
-radius = 1.1601563
+[sub_resource type="SphereShape3D" id="SphereShape3D_7m7ac"]
+radius = 1.01
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_jyxx6"]
-points = PackedVector3Array(-0.7, 3, 0.7, 1.5, -3, 1.8, 0.7, 3, 0.7, -1.5, -3, 1.8, 0.7, 3, -0.7, -0.7, 3, -0.7, -1.5, -3, -1.8, 1.5, -3, -1.8)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_7m7ac"]
+height = 5.5751953
+radius = 0.05
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bv7ge"]
+radius = 1.6087848
 
 [node name="Probe" type="RigidBody3D" unique_id=1748229266]
 script = ExtResource("1_st13e")
@@ -446,13 +450,25 @@ randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_d2v0j")
 draw_pass_1 = SubResource("QuadMesh_dgx63")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=541431942]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=626929382]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.0059537888, -1.085361)
-shape = SubResource("SphereShape3D_st13e")
+shape = SubResource("SphereShape3D_7m7ac")
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=626929382]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.0059537888, 1.2900052)
-shape = SubResource("ConvexPolygonShape3D_jyxx6")
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=167759529]
+transform = Transform3D(0.98480767, -0.17045797, -0.03313365, -1.6681046e-08, -0.19080894, 0.98162717, -0.17364837, -0.966714, -0.18791011, 1.07, 1.265, 1.478)
+shape = SubResource("CylinderShape3D_7m7ac")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="." unique_id=1031041493]
+transform = Transform3D(0.98480767, 0.17045796, 0.033133645, 1.6681046e-08, -0.19080892, 0.9816271, 0.17364837, -0.96671396, -0.1879101, -1.07, 1.265, 1.478)
+shape = SubResource("CylinderShape3D_7m7ac")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="." unique_id=1915949661]
+transform = Transform3D(0.98480767, 0.17045772, -0.033133645, -2.8811346e-08, -0.19080892, -0.9816271, -0.17364813, 0.96671396, -0.1879101, 1.07, -1.265, 1.478)
+shape = SubResource("CylinderShape3D_7m7ac")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="." unique_id=483054094]
+transform = Transform3D(0.98480767, -0.17045772, 0.033133645, 2.8811346e-08, -0.1908089, -0.98162705, 0.17364813, 0.9667139, -0.18791008, -1.07, -1.265, 1.478)
+shape = SubResource("CylinderShape3D_7m7ac")
 
 [node name="ThrusterSFX" type="AudioStreamPlayer3D" parent="." unique_id=1771148629]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.0059537888, -1.085361)
@@ -460,7 +476,7 @@ stream = ExtResource("3_jyxx6")
 bus = &"Probe"
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=1578721213]
-size = Vector2i(128, 128)
+size = Vector2i(256, 256)
 render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport" unique_id=399540197]
@@ -475,3 +491,11 @@ offset_top = -23.0
 offset_right = 40.0
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("4_7m7ac")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1672267584]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1101867034]
+shape = SubResource("SphereShape3D_bv7ge")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

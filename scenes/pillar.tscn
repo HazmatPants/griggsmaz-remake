@@ -149,7 +149,10 @@ emission_energy_multiplier = 7000.0
 [sub_resource type="SphereMesh" id="SphereMesh_0rise"]
 material = SubResource("StandardMaterial3D_b73mi")
 
-[node name="Pillar" type="Node3D" unique_id=804672166]
+[sub_resource type="BoxShape3D" id="BoxShape3D_rqueh"]
+size = Vector3(37, 5000, 37)
+
+[node name="Pillar" type="StaticBody3D" unique_id=1197835042]
 
 [node name="Cube" type="MeshInstance3D" parent="." unique_id=53490359]
 transform = Transform3D(18.3762, 0, 0, 0, 6704.5, 0, 0, 0, 18.3762, 0, -10, 0)
@@ -168,3 +171,6 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 
 lifetime = 15.0
 process_material = SubResource("ParticleProcessMaterial_wwqjk")
 draw_pass_1 = SubResource("SphereMesh_0rise")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=159368896]
+shape = SubResource("BoxShape3D_rqueh")

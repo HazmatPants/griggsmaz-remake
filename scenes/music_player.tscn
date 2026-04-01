@@ -1,0 +1,223 @@
+[gd_scene format=3 uid="uid://l11ngg5fm6o6"]
+
+[ext_resource type="Script" uid="uid://dsaci7p5pjhbs" path="res://scripts/music_player.gd" id="1_io3i6"]
+[ext_resource type="Material" uid="uid://ciqii07ne7851" path="res://assets/materials/dark_metal.tres" id="1_l7xiw"]
+[ext_resource type="Material" uid="uid://bmpi1fxye3f1y" path="res://assets/materials/metal.tres" id="1_ql6qh"]
+[ext_resource type="Material" uid="uid://mmipuntj1gx8" path="res://assets/materials/shiny_metal.tres" id="2_l7xiw"]
+[ext_resource type="FontFile" uid="uid://b7b5eqkbdsac0" path="res://assets/fonts/JetBrainsMono-Regular.ttf" id="3_l7xiw"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_h7hmc"]
+size = Vector3(0.1, 0.3, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yalyj"]
+material = ExtResource("1_l7xiw")
+size = Vector3(0.1, 0.3, 0.5)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_io3i6"]
+material = ExtResource("2_l7xiw")
+top_radius = 0.01
+bottom_radius = 0.01
+height = 0.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_jakdj"]
+material = ExtResource("1_ql6qh")
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_io3i6"]
+albedo_color = Color(1, 0, 0, 1)
+metallic = 1.0
+roughness = 0.69
+normal_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_jakdj"]
+material = SubResource("StandardMaterial3D_io3i6")
+size = Vector3(0.01, 0.02, 0.01)
+
+[sub_resource type="BoxMesh" id="BoxMesh_l7xiw"]
+material = ExtResource("1_ql6qh")
+size = Vector3(0.025, 0.025, 0.025)
+
+[sub_resource type="BoxMesh" id="BoxMesh_io3i6"]
+material = ExtResource("1_ql6qh")
+size = Vector3(0.11, 0.01, 0.025)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ql6qh"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l7xiw"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_ql6qh")
+emission_enabled = true
+emission_texture = SubResource("ViewportTexture_ql6qh")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_yalyj"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_l7xiw")
+size = Vector2(0.49, 0.15)
+
+[node name="MusicPlayer" type="StaticBody3D" unique_id=662375961]
+script = ExtResource("1_io3i6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1031998121]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+shape = SubResource("BoxShape3D_h7hmc")
+
+[node name="Node3D" type="Node3D" parent="." unique_id=1608744977]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D" unique_id=632656486]
+mesh = SubResource("BoxMesh_yalyj")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Node3D" unique_id=24828142]
+transform = Transform3D(1, 0, 0, 0, 0.25881907, -0.9659258, 0, 0.9659258, 0.25881907, 0, 0.2011373, 0)
+mesh = SubResource("CylinderMesh_io3i6")
+
+[node name="VolDial" type="MeshInstance3D" parent="Node3D" unique_id=235947740]
+transform = Transform3D(-4.371139e-08, 1, -4.371139e-08, 0, -4.371139e-08, -1, -1, -4.371139e-08, 1.9106855e-15, 0.021838337, -0.06889391, 0.1770454)
+rotation_order = 3
+mesh = SubResource("CylinderMesh_jakdj")
+
+[node name="VolDial2" type="MeshInstance3D" parent="Node3D/VolDial" unique_id=1597007403]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.049953893, -0.04035546)
+mesh = SubResource("BoxMesh_jakdj")
+
+[node name="Label3D2" type="Label3D" parent="Node3D/VolDial" unique_id=6310434]
+transform = Transform3D(0.05, 0, 0, 0, -2.1855695e-09, -0.05, 0, 0.05, -2.1855695e-09, 0.011441663, 0.05024274, -0.037518036)
+modulate = Color(0.56, 0.56, 0.56, 1)
+outline_modulate = Color(0.25, 0.25, 0.25, 0)
+text = "+"
+font_size = 64
+
+[node name="Label3D" type="Label3D" parent="Node3D/VolDial" unique_id=1553160586]
+transform = Transform3D(0.05, 0, 0, 0, -2.1855695e-09, 0.05, 0, -0.05, -2.1855695e-09, -0.011611819, 0.05024274, -0.039282765)
+modulate = Color(0.56, 0.56, 0.56, 1)
+outline_modulate = Color(0.25, 0.25, 0.25, 0)
+text = "-"
+font_size = 64
+
+[node name="DPadCenter" type="MeshInstance3D" parent="Node3D" unique_id=552479458]
+transform = Transform3D(-4.371139e-08, 1, 2.9802322e-08, 0, 2.9802322e-08, -1, -1, -4.371139e-08, -1.3027009e-15, 0.05501879, -0.06889391, 0.0400275)
+mesh = SubResource("BoxMesh_l7xiw")
+
+[node name="Label3D" type="Label3D" parent="Node3D/DPadCenter" unique_id=1274523108]
+transform = Transform3D(0.05, 0, 0, 0, -2.1855695e-09, 0.05, 0, -0.05, -2.1855695e-09, 0, 0.013227623, 0)
+modulate = Color(0.56, 0.56, 0.56, 1)
+outline_modulate = Color(0.25, 0.25, 0.25, 0)
+text = "_"
+font_size = 64
+
+[node name="DPadUp" type="MeshInstance3D" parent="Node3D" unique_id=1918915451]
+transform = Transform3D(-4.371139e-08, 1, 2.9802322e-08, 0, 2.9802322e-08, -1, -1, -4.371139e-08, -1.3027009e-15, 0.055, -0.039, 0.04)
+mesh = SubResource("BoxMesh_l7xiw")
+
+[node name="Label3D" type="Label3D" parent="Node3D/DPadUp" unique_id=1577944182]
+transform = Transform3D(0.05, 0, 0, 0, -2.1855695e-09, 0.05, 0, -0.05, -2.1855695e-09, 0, 0.013227623, 0)
+modulate = Color(0.56, 0.56, 0.56, 1)
+outline_modulate = Color(0.25, 0.25, 0.25, 0)
+text = "W"
+font_size = 64
+
+[node name="DPadLeft" type="MeshInstance3D" parent="Node3D" unique_id=114816286]
+transform = Transform3D(-4.371139e-08, 1, 2.9802322e-08, 0, 2.9802322e-08, -1, -1, -4.371139e-08, -1.3027009e-15, 0.055, -0.069, 0.07)
+mesh = SubResource("BoxMesh_l7xiw")
+
+[node name="Label3D" type="Label3D" parent="Node3D/DPadLeft" unique_id=1179598766]
+transform = Transform3D(0.05, 0, 0, 0, -2.1855695e-09, 0.05, 0, -0.05, -2.1855695e-09, 0, 0.013227623, 0)
+modulate = Color(0.56, 0.56, 0.56, 1)
+outline_modulate = Color(0.25, 0.25, 0.25, 0)
+text = "A"
+font_size = 64
+
+[node name="DPadRight" type="MeshInstance3D" parent="Node3D" unique_id=783458019]
+transform = Transform3D(-4.371139e-08, 1, 2.9802322e-08, 0, 2.9802322e-08, -1, -1, -4.371139e-08, -1.3027009e-15, 0.055, -0.069, 0.01)
+mesh = SubResource("BoxMesh_l7xiw")
+
+[node name="Label3D" type="Label3D" parent="Node3D/DPadRight" unique_id=2020788270]
+transform = Transform3D(0.05, 0, 0, 0, -2.1855695e-09, 0.05, 0, -0.05, -2.1855695e-09, 0, 0.013227623, 0)
+modulate = Color(0.56, 0.56, 0.56, 1)
+outline_modulate = Color(0.25, 0.25, 0.25, 0)
+text = "D"
+font_size = 64
+
+[node name="DPadDown" type="MeshInstance3D" parent="Node3D" unique_id=1144170755]
+transform = Transform3D(-4.371139e-08, 1, 2.9802322e-08, 0, 2.9802322e-08, -1, -1, -4.371139e-08, -1.3027009e-15, 0.055, -0.099, 0.04)
+mesh = SubResource("BoxMesh_l7xiw")
+
+[node name="Label3D" type="Label3D" parent="Node3D/DPadDown" unique_id=1327059716]
+transform = Transform3D(0.05, 0, 0, 0, -2.1855695e-09, 0.05, 0, -0.05, -2.1855695e-09, 0, 0.013227623, 0)
+modulate = Color(0.56, 0.56, 0.56, 1)
+outline_modulate = Color(0.25, 0.25, 0.25, 0)
+text = "S"
+font_size = 64
+
+[node name="Label3D2" type="Label3D" parent="Node3D" unique_id=38349049]
+transform = Transform3D(-2.1855695e-09, -3.6756855e-09, 0.05, 0, 0.05, 3.6756855e-09, -0.05, 1.6066931e-16, -2.1855695e-09, 0.050053585, -0.099, -0.057026017)
+modulate = Color(0.56, 0.56, 0.56, 1)
+outline_modulate = Color(0.25, 0.25, 0.25, 0)
+text = "Shuffle"
+font_size = 64
+
+[node name="ShuffleButton" type="MeshInstance3D" parent="Node3D" unique_id=900115577]
+transform = Transform3D(-4.371139e-08, 1, 2.9802322e-08, 0, 2.9802322e-08, -1, -1, -4.371139e-08, -1.3027009e-15, 0.054999996, -0.099, -0.101920515)
+mesh = SubResource("BoxMesh_l7xiw")
+
+[node name="Label3D" type="Label3D" parent="Node3D/ShuffleButton" unique_id=1673432201]
+transform = Transform3D(0.05, 0, 0, 0, -2.1855695e-09, 0.05, 0, -0.05, -2.1855695e-09, 0, 0.013227623, 0)
+modulate = Color(0.56, 0.56, 0.56, 1)
+outline_modulate = Color(0.25, 0.25, 0.25, 0)
+text = "C"
+font_size = 64
+
+[node name="LoopSelectorBar" type="MeshInstance3D" parent="Node3D" unique_id=1622742037]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0.054999996, -0.039, -0.07647921)
+mesh = SubResource("BoxMesh_io3i6")
+
+[node name="LoopSelector" type="MeshInstance3D" parent="Node3D/LoopSelectorBar" unique_id=1326002799]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+mesh = SubResource("BoxMesh_l7xiw")
+
+[node name="Label3D" type="Label3D" parent="Node3D/LoopSelectorBar/LoopSelector" unique_id=1558994666]
+transform = Transform3D(0.05, 0, 0, 0, -2.1855695e-09, 0.05, 0, -0.05, -2.1855695e-09, 0, 0.013227623, 0)
+modulate = Color(0.56, 0.56, 0.56, 1)
+outline_modulate = Color(0.25, 0.25, 0.25, 0)
+text = "L"
+font_size = 64
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Node3D" unique_id=1729631647]
+transform = Transform3D(-4.371139e-08, 1, 2.9802322e-08, 0, 2.9802322e-08, -1, -1, -4.371139e-08, -1.3027009e-15, 0.050046608, 0.06904608, 0)
+mesh = SubResource("PlaneMesh_yalyj")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1885847197]
+transparent_bg = true
+size = Vector2i(1024, 360)
+
+[node name="ColorRect" type="ColorRect" parent="SubViewport" unique_id=605099395]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="SubViewport/ColorRect" unique_id=749926903]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("3_l7xiw")
+theme_override_font_sizes/font_size = 24
+
+[node name="StatusLabel" type="Label" parent="SubViewport/ColorRect" unique_id=973425712]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -33.0
+offset_right = 40.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_l7xiw")
+theme_override_font_sizes/font_size = 24
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1914468300]
+bus = &"SFX"

@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://dmwbsxhn3nw1"]
+
+[sub_resource type="GDScript" id="GDScript_hpt1u"]
+resource_name = "BlinkLight"
+script/source = "extends OmniLight3D
+
+@export var blink_frequency := 0.5
+
+var blink_timer := 0.0
+
+func _process(delta: float) -> void:
+	blink_timer += delta
+
+	if blink_timer > blink_frequency:
+		visible = !visible
+		blink_timer = 0.0
+"
+
+[node name="BlinkLight" type="OmniLight3D" unique_id=805143186]
+light_energy = 2.0
+shadow_enabled = true
+omni_range = 10.0
+script = SubResource("GDScript_hpt1u")

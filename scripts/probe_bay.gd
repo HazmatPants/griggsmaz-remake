@@ -6,6 +6,7 @@ enum PROBE_STATUS {
 	IDLE,
 	SCANNING,
 	RETURN,
+	MANUAL_CTRL
 }
 
 var probe_status := PROBE_STATUS.IDLE
@@ -18,13 +19,18 @@ signal reloaded
 
 func _ready() -> void:
 	probe = preload("res://scenes/probe.tscn").instantiate()
+
+	probe.name = name.replace("Bay", "")
+
 	get_tree().current_scene.add_child.call_deferred(probe)
 
 	probe.bay = self
 
 	await probe.tree_entered
 
-	probe.global_position = global_position - global_basis.y
+	%PathFollow3D.progress_ratio = 0.0
+	probe.global_position = %PathFollow3D.global_position
+	probe.look_at(probe.global_position + Vector3.FORWARD)
 
 func launch() -> void:
 	probe.launch()
@@ -42,16 +48,16 @@ func reload():
 		preload("res://assets/audio/sfx/machine/probe_load.ogg"),
 		global_position,
 		4.0,
-		"Probe",
-		0.9
+		&"Probe",
+		0.7
 	)
 
-	probe.global_position = global_position + Vector3.BACK
-	probe.look_at(global_position)
-	reloaded.emit(true)
-	await get_tree().create_timer(1.0).timeout
-	is_reloading = false
-
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if probe and probe.is_inside_tree() and is_reloading:
-		probe.global_position = probe.global_position.lerp(global_position + global_basis.y * 6.0, 0.05)
+		probe.collider.disabled = true
+		%PathFollow3D.progress_ratio += 0.2 * delta
+		probe.global_position = %PathFollow3D.global_position
+		if %PathFollow3D.progress_ratio >= 1.0:
+			probe.collider.disabled = false
+			reloaded.emit(true)
+			is_reloading = false

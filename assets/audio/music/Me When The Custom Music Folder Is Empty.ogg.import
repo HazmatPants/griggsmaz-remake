@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cvd2otrxiwg5a"
+path="res://.godot/imported/Me When The Custom Music Folder Is Empty.ogg-3d33570b7d96dce1b4fb1ad602312d62.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/music/Me When The Custom Music Folder Is Empty.ogg"
+dest_files=["res://.godot/imported/Me When The Custom Music Folder Is Empty.ogg-3d33570b7d96dce1b4fb1ad602312d62.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
