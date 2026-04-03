@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bun5gptvoa3bb"]
+
+[ext_resource type="Script" uid="uid://dbys7shynw8lb" path="res://scripts/items/carbon_bond_plate.gd" id="1_menim"]
+[ext_resource type="PackedScene" uid="uid://o8whb35sl1xn" path="res://assets/models/carbon_bond_plate.glb" id="1_ogtfu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ntevj"]
+size = Vector3(1.1308594, 0.3, 1)
+
+[node name="CarbonBondPlate" type="RigidBody3D" unique_id=2055669538]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+freeze = true
+script = ExtResource("1_menim")
+
+[node name="carbon_bond_plate" parent="." unique_id=450026733 instance=ExtResource("1_ogtfu")]
+transform = Transform3D(-0.5, 0, 7.54979e-08, 0, 0.5, 0, -7.54979e-08, 0, -0.5, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=468211056]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06542969, 0, 0)
+shape = SubResource("BoxShape3D_ntevj")

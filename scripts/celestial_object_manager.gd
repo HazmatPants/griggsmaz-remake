@@ -6,6 +6,10 @@ enum BODY_TYPE {
 	RIFT
 }
 
+const BODY_VALUES = {
+	BODY_TYPE.RIFT: 20.0
+}
+
 const BODY_SCENES = {
 	BODY_TYPE.RIFT: preload("res://scenes/bodies/rift.tscn")
 }
@@ -36,11 +40,19 @@ func _process(delta: float) -> void:
 
 	scanner_instability = clampf(scanner_instability, 1.0, 2.0)
 
-	for body in bodies.values():
-		body["scan_progress"] = clampf(body["scan_progress"], 0.0, 1.0)
+	for body in bodies.keys():
+		bodies[body]["scan_progress"] = clampf(bodies[body]["scan_progress"], 0.0, 1.0)
+
+		bodies[body]["lifetime"] += delta
+		if bodies[body]["lifetime"] > 600.0:
+			bodies[body]["node"].queue_free()
+			
 
 func spawn_body(pos: Vector3=Vector3.ZERO, type: BODY_TYPE=BODY_TYPE.RIFT, id: String=""):
-	var body_id = str(randi()) if not id else id
+	var body_id = Marshalls.utf8_to_base64(str(randi())).substr(0, 4) if not id else id
+
+	if bodies.has(body_id): return
+
 	var body_type = BODY_TYPE.values().pick_random() if not type else type
 	var body_position = Vector3(
 		randf_range(-5000, 5000),
@@ -48,15 +60,18 @@ func spawn_body(pos: Vector3=Vector3.ZERO, type: BODY_TYPE=BODY_TYPE.RIFT, id: S
 		randf_range(-5000, -100),
 	) if not pos else pos
 
+	var body: Node3D = BODY_SCENES[body_type].instantiate()
+
 	bodies[body_id] = {
 		"id": body_id,
 		"type": body_type,
-		"position": body_position, 
-		"active": true,
-		"scan_progress": 0.0
+		"position": body_position,
+		"scan_progress": 0.0,
+		"uploaded": false,
+		"scan_value": BODY_VALUES[body_type] + randf_range(-5.0, 5.0),
+		"lifetime": 0.0,
+		"node": body
 	}
-
-	var body = BODY_SCENES[body_type].instantiate()
 
 	get_tree().current_scene.add_child.call_deferred(body)
 

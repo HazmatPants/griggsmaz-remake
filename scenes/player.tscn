@@ -2,9 +2,32 @@
 
 [ext_resource type="Script" uid="uid://caphtxuffjuxi" path="res://scripts/player.gd" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://bx67ae3770xby" path="res://scripts/player_hud.gd" id="2_g2els"]
+[ext_resource type="Shader" uid="uid://bnoun8vpv2adn" path="res://shaders/noise.gdshader" id="3_qhqgy"]
+[ext_resource type="AudioStream" uid="uid://jl4ymppjpikq" path="res://assets/audio/sfx/player/pant.ogg" id="4_dqkch"]
+[ext_resource type="AudioStream" uid="uid://pkk6cy4847rk" path="res://assets/audio/sfx/player/unconscious_type_beat.ogg" id="5_qlg0r"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u8vuu"]
 radius = 0.28076172
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dqkch"]
+shader = ExtResource("3_qhqgy")
+shader_parameter/noise_intensity = 0.05
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g2els"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
 
 [node name="Player" type="CharacterBody3D" unique_id=612759257]
 script = ExtResource("1_3vyb7")
@@ -26,7 +49,7 @@ collide_with_areas = true
 [node name="HUD" type="CanvasLayer" parent="." unique_id=730033409]
 script = ExtResource("2_g2els")
 
-[node name="ColorRect" type="ColorRect" parent="HUD" unique_id=1936224747]
+[node name="Crosshair" type="ColorRect" parent="HUD" unique_id=1936224747]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -39,10 +62,81 @@ offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset_ratio = Vector2(0.5, 0.5)
+color = Color(1, 1, 1, 0.43529412)
+
+[node name="Blackout" type="ColorRect" parent="HUD" unique_id=237847132]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
+color = Color(0, 0, 0, 1)
+
+[node name="Noise" type="ColorRect" parent="HUD" unique_id=1848606531]
+material = SubResource("ShaderMaterial_dqkch")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset_ratio = Vector2(0.5, 0.5)
 
 [node name="FPSLabel" type="Label" parent="HUD" unique_id=1941399612]
 offset_right = 40.0
 offset_bottom = 23.0
+text = "60"
+
+[node name="DevMenu" type="Control" parent="HUD" unique_id=362181237]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -115.0
+offset_top = -138.0
+offset_right = 115.0
+offset_bottom = 138.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="HUD/DevMenu" unique_id=918089627]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_g2els")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/DevMenu/Panel" unique_id=194367685]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NoclipButton" type="Button" parent="HUD/DevMenu/Panel/VBoxContainer" unique_id=677309873]
+layout_mode = 2
+text = "Noclip"
 
 [node name="FootRay" type="RayCast3D" parent="." unique_id=111957361]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.91754436, 0)
+target_position = Vector3(0, -2, 0)
+
+[node name="PantSFX" type="AudioStreamPlayer" parent="." unique_id=191134257]
+stream = ExtResource("4_dqkch")
+volume_db = -80.0
+pitch_scale = 0.95
+autoplay = true
+bus = &"SFX"
+
+[node name="UnconscAmb" type="AudioStreamPlayer" parent="." unique_id=1318360913]
+stream = ExtResource("5_qlg0r")
+volume_db = -80.0
+autoplay = true
+bus = &"Ambience"
+
+[connection signal="pressed" from="HUD/DevMenu/Panel/VBoxContainer/NoclipButton" to="HUD" method="_on_noclip_button_pressed"]

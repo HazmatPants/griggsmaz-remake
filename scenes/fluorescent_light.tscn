@@ -17,12 +17,16 @@ size = Vector3(0.15, 0.1, 0.95)
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=2082530522]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.16498001, 0)
 light_color = Color(1, 1, 0.67058825, 1)
+shadow_enabled = true
+shadow_caster_mask = 4294967293
 omni_range = 50.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=726953448]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+layers = 2
 mesh = SubResource("BoxMesh_7iie0")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=276134061]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, -0.05, 0)
+layers = 2
 mesh = SubResource("BoxMesh_klrdb")

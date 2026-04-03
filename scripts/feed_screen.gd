@@ -38,11 +38,13 @@ func _process(delta: float) -> void:
 
 		var dist = Vector3.ZERO.distance_to(camera.global_position)
 
-		for px in range(dist):
+		for px in range(dist / 10):
 			var x = randi_range(0, img.get_size().x - 1)
 			var y = randi_range(0, img.get_size().y - 1)
 
 			img.set_pixel(x, y, Color(randf(), randf(), randf()))
+
+		img.adjust_bcs(1.0, 2.0, 1.0)
 
 		var texture = ImageTexture.create_from_image(img)
 

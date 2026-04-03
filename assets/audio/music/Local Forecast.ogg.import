@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bmqpl534sx4ht"
+path="res://.godot/imported/Local Forecast.ogg-e4b196e281db30bb8079d9ae1fbdcfad.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/music/Local Forecast.ogg"
+dest_files=["res://.godot/imported/Local Forecast.ogg-e4b196e281db30bb8079d9ae1fbdcfad.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

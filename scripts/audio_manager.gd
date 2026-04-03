@@ -1,6 +1,6 @@
 extends Node
 
-func playsound3d(stream: AudioStream, global_position: Vector3, volume_linear: float=1.0, bus: StringName=&"SFX", pitch_scale: float=1.0):
+func playsound3d(stream: AudioStream, global_position: Vector3, volume_linear: float=1.0, bus: StringName=&"SFX", pitch_scale: float=1.0) -> AudioStreamPlayer3D:
 	var ap := AudioStreamPlayer3D.new()
 
 	ap.stream = stream
@@ -13,6 +13,8 @@ func playsound3d(stream: AudioStream, global_position: Vector3, volume_linear: f
 	get_tree().current_scene.add_child(ap)
 
 	ap.global_position = global_position
+
+	return ap
 
 func playsound(stream: AudioStream, volume_linear: float=1.0, bus: StringName=&"SFX"):
 	var ap := AudioStreamPlayer.new()
@@ -38,3 +40,12 @@ func playrandom(sound_list: Array[AudioStream], volume_linear: float=1.0, bus: S
 	var idx = randi_range(0, sound_list.size() - 1)
 
 	playsound(sound_list[idx], volume_linear, bus)
+
+func _process(_delta: float) -> void:
+	var lowpass = AudioServer.get_bus_effect(1, 1).cutoff_hz
+
+	lowpass = lerpf(lowpass, lerpf(0.0, 20500, ease(GLOBAL.player.consciousness, 3.0)), 0.05)
+
+	AudioServer.get_bus_effect(1, 1).cutoff_hz = lowpass
+
+	AudioServer.set_bus_effect_enabled(1, 2, GLOBAL.player.consciousness < 0.5)

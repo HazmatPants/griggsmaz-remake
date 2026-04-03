@@ -73,22 +73,22 @@ func _input(event: InputEvent) -> void:
 					show_status("Paused")
 					Audio.playsound3d(
 						preload("res://assets/audio/sfx/buttons/ButtonOff.ogg"),
-						$Node3D/DPadCenter.position,
-						0.2
+						global_position,
+						0.05
 					)
 				else:
 					show_status("Resumed")
 					Audio.playsound3d(
 						preload("res://assets/audio/sfx/buttons/ButtonOn.ogg"),
-						$Node3D/DPadCenter.position,
-						0.2
+						global_position,
+						0.05
 					)
 
 			KEY_L:
 				Audio.playsound3d(
 					SFX_SLIDER,
-					$Node3D/LoopSelectorBar/LoopSelector.position,
-					0.4
+					global_position,
+					0.05
 				)
 				if play_mode == MODE.NO_LOOP:
 					play_mode = MODE.LOOP
@@ -116,15 +116,15 @@ func _input(event: InputEvent) -> void:
 					show_status("Shuffle ON")
 					Audio.playsound3d(
 						preload("res://assets/audio/sfx/buttons/ButtonOff.ogg"),
-						$Node3D/ShuffleButton.position,
-						0.2
+						global_position,
+						0.05
 					)
 				else:
 					show_status("Shuffle OFF")
 					Audio.playsound3d(
 						preload("res://assets/audio/sfx/buttons/ButtonOn.ogg"),
-						$Node3D/ShuffleButton.position,
-						0.2
+						global_position,
+						0.05
 					)
 
 func _process(_delta: float) -> void:
@@ -185,7 +185,7 @@ func switch_playlist(target: StringName):
 				"res://assets/audio/music/idwtstwof.ogg",
 				"res://assets/audio/music/every_light_is_blinking_at_once.ogg",
 				"res://assets/audio/music/Sh Boom.ogg",
-				"res://assets/audio/music/The Wanderer.ogg",
+				"res://assets/audio/music/Local Forecast.ogg",
 				"res://assets/audio/music/lhs_rld11.ogg",
 			]
 		&"custom":

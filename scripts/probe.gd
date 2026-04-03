@@ -41,6 +41,9 @@ func launch():
 		bay.probe_status = ProbeBay.PROBE_STATUS.IDLE
 		return
 
+	lock()
+
+func lock():
 	bay.probe_status = ProbeBay.PROBE_STATUS.APPROACH
 
 	target_offset = Vector3(
@@ -123,11 +126,14 @@ func _process(delta: float) -> void:
 		if target["scan_progress"] < 1.0:
 			target["scan_progress"] += delta / 200
 			battery -= 0.0008 * delta
+			if target.is_empty():
+				bay.probe_status = ProbeBay.PROBE_STATUS.IDLE
+				GLOBAL.player_log("%s target lost!" % name)
 		else:
 			bay.probe_status = ProbeBay.PROBE_STATUS.IDLE
 
 	if bay.probe_status == ProbeBay.PROBE_STATUS.RETURN or bay.probe_status == ProbeBay.PROBE_STATUS.MANUAL_CTRL:
-		if global_position.distance_squared_to(bay.global_position) < 5.0:
+		if global_position.distance_squared_to(bay.global_position) < 10.0:
 			var path = bay.get_node("Path3D/PathFollow3D")
 			target = {}
 			is_docked = true
@@ -181,14 +187,13 @@ func lerp_rot(from: Vector3, to: Vector3, weight: float) -> Vector3:
 	vec.z = lerp_angle(from.z, to.z, weight)
 	return vec
 
-func _on_area_3d_body_entered(body: Node3D) -> void:
+func _on_area_3d_body_entered(_body: Node3D) -> void:
 	if not linear_velocity.length() > 0.05: return
 	thruster = false
 	if bay.probe_status != ProbeBay.PROBE_STATUS.MANUAL_CTRL:
 		bay.probe_status = ProbeBay.PROBE_STATUS.IDLE
 
 	GLOBAL.player_log("%s collision detected!" % name)
-	print("probe hit %s" % body)
 
 func scan():
 	if not target: return "no_target"

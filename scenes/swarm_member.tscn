@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://dcunipa5cftbe"]
+
+[ext_resource type="Script" uid="uid://cvjp1fs8mfisc" path="res://scripts/swarm_member.gd" id="1_0fvjb"]
+[ext_resource type="PackedScene" uid="uid://bfdr0r4lwivqj" path="res://assets/models/swarm_member.glb" id="1_ok35p"]
+
+[node name="SwarmMember" type="Node3D" unique_id=1183910736]
+script = ExtResource("1_0fvjb")
+
+[node name="swarm_member" parent="." unique_id=9416551 instance=ExtResource("1_ok35p")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+
+[node name="Icosphere" parent="swarm_member" index="0" unique_id=1935802028]
+layers = 2
+
+[node name="Icosphere_001" parent="swarm_member" index="1" unique_id=2096122153]
+layers = 2
+
+[node name="Cylinder" parent="swarm_member" index="2" unique_id=1588844545]
+layers = 2
+
+[node name="Cylinder_001" parent="swarm_member" index="3" unique_id=699704349]
+layers = 2
+
+[node name="Cylinder_003" parent="swarm_member" index="4" unique_id=1675297604]
+layers = 2
+
+[node name="Icosphere_002" parent="swarm_member" index="5" unique_id=1628621921]
+layers = 2
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1253377965]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+light_energy = 2.0
+omni_range = 10.0
+
+[editable path="swarm_member"]
